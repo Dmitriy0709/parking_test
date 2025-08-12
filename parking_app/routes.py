@@ -3,7 +3,7 @@ from parking_app import db
 from parking_app.models import Client, Parking, ClientParking
 from parking_app.schemas import ClientSchema, ParkingSchema, ClientParkingSchema
 from datetime import datetime
-from math import ceil
+
 
 bp = Blueprint('main', __name__)
 
@@ -65,7 +65,6 @@ def enter_parking():
     data = request.get_json()
     client_id = data.get('client_id')
     parking_id = data.get('parking_id')
-
     client = Client.query.get(client_id)
     if not client:
         return jsonify({"message": "Client not found"}), 404
@@ -73,31 +72,23 @@ def enter_parking():
     parking = Parking.query.get(parking_id)
     if not parking:
         return jsonify({"message": "Parking not found"}), 404
-
     if not parking.opened:
         return jsonify({"message": "Parking is closed"}), 400
-
     if parking.count_available_places <= 0:
         return jsonify({"message": "No available places"}), 400
-
     active_parking = ClientParking.query.filter_by(
         client_id=client_id,
         time_out=None
     ).first()
-
     if active_parking:
         return jsonify({"message": "Client already in parking"}), 400
-
     entry = ClientParking(
         client_id=client_id,
         parking_id=parking_id
     )
-
     parking.count_available_places -= 1
-
     db.session.add(entry)
     db.session.commit()
-
     return jsonify(client_parking_schema.dump(entry)), 201
 
 
@@ -106,25 +97,19 @@ def exit_parking():
     data = request.get_json()
     client_id = data.get('client_id')
     parking_id = data.get('parking_id')
-
     entry = ClientParking.query.filter_by(
         client_id=client_id,
         parking_id=parking_id,
         time_out=None
     ).first()
-
     if not entry:
         return jsonify({"message": "Active parking not found"}), 404
-
     if not entry.client.credit_card:
         return jsonify({"message": "No credit card linked"}), 400
-
     entry.time_out = datetime.utcnow()
     parking = Parking.query.get(parking_id)
     parking.count_available_places += 1
-
     db.session.commit()
-
     result = client_parking_schema.dump(entry)
     return jsonify(result), 200
 

@@ -1,5 +1,5 @@
 import pytest
-from datetime import datetime, timedelta
+
 
 @pytest.mark.parametrize("endpoint", [
     "/clients",
