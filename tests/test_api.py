@@ -9,6 +9,7 @@ def test_get_endpoints(client, endpoint):
     response = client.get(endpoint)
     assert response.status_code == 200
 
+
 def test_create_client(client, db):
     response = client.post("/clients", json={
         "name": "Анна",
@@ -18,6 +19,7 @@ def test_create_client(client, db):
     })
     assert response.status_code == 201
     assert response.get_json()["name"] == "Анна"
+
 
 def test_create_parking(client, db):
     response = client.post("/parkings", json={
@@ -29,6 +31,7 @@ def test_create_parking(client, db):
     assert response.status_code == 201
     assert response.get_json()["address"] == "New Place"
 
+
 @pytest.mark.parking
 def test_enter_parking(client, db, setup_test_data):
     data = {
@@ -38,6 +41,7 @@ def test_enter_parking(client, db, setup_test_data):
     response = client.post("/enter_parking", json=data)
     assert response.status_code == 201
     assert response.get_json()["client_id"] == data["client_id"]
+
 
 @pytest.mark.parking
 def test_exit_parking(client, db, setup_test_data):
@@ -54,3 +58,4 @@ def test_exit_parking(client, db, setup_test_data):
     data = response.get_json()
     assert data["time_out"] is not None
     assert data["cost"] >= 100
+

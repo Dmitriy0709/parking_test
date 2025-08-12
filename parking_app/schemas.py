@@ -1,5 +1,4 @@
 from marshmallow import Schema, fields
-from datetime import datetime
 from math import ceil
 
 
@@ -32,3 +31,4 @@ class ClientParkingSchema(Schema):
             duration = (obj.time_out - obj.time_in).total_seconds() / 3600
             return max(100, ceil(duration) * 100)
         return 0
+

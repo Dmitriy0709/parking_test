@@ -1,6 +1,7 @@
-import pytest
 import sys
 from pathlib import Path
+
+import pytest
 
 # Добавляем путь к проекту в PYTHONPATH
 project_path = Path(__file__).parent.parent
@@ -58,3 +59,4 @@ def setup_test_data(app, db):
             "client_id": client.id,
             "parking_id": parking.id
         }
+

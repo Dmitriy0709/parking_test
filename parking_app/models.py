@@ -1,6 +1,7 @@
 from parking_app import db
 from datetime import datetime
 
+
 class Client(db.Model):
     __tablename__ = 'client'
     id = db.Column(db.Integer, primary_key=True)
@@ -10,6 +11,7 @@ class Client(db.Model):
     car_number = db.Column(db.String(10))
     parkings = db.relationship('ClientParking', back_populates='client')
 
+
 class Parking(db.Model):
     __tablename__ = 'parking'
     id = db.Column(db.Integer, primary_key=True)
@@ -18,6 +20,7 @@ class Parking(db.Model):
     count_places = db.Column(db.Integer, nullable=False)
     count_available_places = db.Column(db.Integer, nullable=False)
     clients = db.relationship('ClientParking', back_populates='parking')
+
 
 class ClientParking(db.Model):
     __tablename__ = 'client_parking'
@@ -31,3 +34,4 @@ class ClientParking(db.Model):
     time_out = db.Column(db.DateTime)
     client = db.relationship('Client', back_populates='parkings')
     parking = db.relationship('Parking', back_populates='clients')
+
