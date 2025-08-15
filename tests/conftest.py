@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 import pytest
 
 # Добавляем путь к проекту в PYTHONPATH
