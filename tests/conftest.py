@@ -1,6 +1,5 @@
 import sys
 from pathlib import Path
-
 import pytest
 
 # Добавляем путь к проекту в PYTHONPATH
@@ -59,4 +58,3 @@ def setup_test_data(app, db):
             "client_id": client.id,
             "parking_id": parking.id
         }
-

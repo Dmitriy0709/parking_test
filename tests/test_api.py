@@ -58,4 +58,3 @@ def test_exit_parking(client, db, setup_test_data):
     data = response.get_json()
     assert data["time_out"] is not None
     assert data["cost"] >= 100
-

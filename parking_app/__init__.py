@@ -16,4 +16,3 @@ def create_app(config_class=None):
         db.create_all()
 
     return app
-

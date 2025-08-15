@@ -34,4 +34,3 @@ class ClientParking(db.Model):
     time_out = db.Column(db.DateTime)
     client = db.relationship('Client', back_populates='parkings')
     parking = db.relationship('Parking', back_populates='clients')
-

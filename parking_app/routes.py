@@ -113,6 +113,7 @@ def exit_parking():
     result = client_parking_schema.dump(entry)
     return jsonify(result), 200
 
+
 @bp.route('/parkings', methods=['GET'])
 def get_parkings():
     parkings = Parking.query.all()
