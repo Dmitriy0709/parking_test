@@ -1,12 +1,10 @@
 import sys
 from pathlib import Path
 
+# Добавляем путь к проекту в PYTHONPATH до любых других импортов
+sys.path.append(str(Path(__file__).parent.parent))
 
-project_path = Path(__file__).parent.parent
-sys.path.append(str(project_path))
-
-import pytest  # внешние импорты всегда идут первыми
-
+import pytest
 
 from parking_app import create_app, db as _db
 from parking_app.config import TestConfig
