@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-import pytest
+import pytest  # внешние импорты всегда идут первыми
 
 # Добавляем путь к проекту в PYTHONPATH
 project_path = Path(__file__).parent.parent
@@ -12,7 +12,7 @@ from parking_app.config import TestConfig
 from parking_app.models import Client, Parking, ClientParking
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def app():
     app = create_app(TestConfig)
     with app.app_context():
@@ -22,7 +22,7 @@ def app():
         _db.drop_all()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def db(app):
     return _db
 
@@ -43,13 +43,13 @@ def setup_test_data(app, db):
             name="Test",
             surname="Client",
             credit_card="1234567890123456",
-            car_number="A123BC"
+            car_number="A123BC",
         )
         parking = Parking(
             address="Test Address",
             opened=True,
             count_places=10,
-            count_available_places=10
+            count_available_places=10,
         )
 
         db.session.add_all([client, parking])
@@ -57,5 +57,5 @@ def setup_test_data(app, db):
 
         return {
             "client_id": client.id,
-            "parking_id": parking.id
+            "parking_id": parking.id,
         }
